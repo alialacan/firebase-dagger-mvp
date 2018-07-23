@@ -6,7 +6,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.alialacan.archfire.R;
-import com.alialacan.archfire.UserModel;
+import com.google.firebase.auth.FirebaseUser;
 
 import javax.inject.Inject;
 
@@ -28,13 +28,13 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
     EditText etPass;
 
     @Inject
-    Lazy<UserModel> user;
+    Lazy<FirebaseUser> user;
 
 
     @OnClick(R.id.btnLogin)
     public void onLoginClicked() {
         if (TextUtils.isEmpty(etUserName.getText().toString()) || TextUtils.isEmpty(etPass.getText().toString())) {
-            Toast.makeText(this, "Not Valid", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Not Valid!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -48,6 +48,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         presenter.attach(this);
+        presenter.checkLogin();
     }
 
     @Override
@@ -57,16 +58,34 @@ public class LoginActivity extends DaggerAppCompatActivity implements LoginContr
     }
 
     @Override
-    public void onLoginResult(boolean isSuccess) {
-        if (isSuccess)
-            Toast.makeText(this, "Welcome " + user.get().getUserName(), Toast.LENGTH_SHORT).show();
-
-        hideLoading();
+    public void onCheckLogin(boolean isLoggedIn) {
+        showLoading();
+        if (isLoggedIn) {
+            Toast.makeText(this, "Already Signed In!", Toast.LENGTH_SHORT).show();
+            // TODO: 23/07/2018 redirect
+        } else {
+            hideLoading();
+        }
     }
 
     @Override
-    public void onRegisterResult(boolean isSuccess) {
+    public void onLoginResult(boolean isSuccess, FirebaseUser user) {
+        if (isSuccess)
+            Toast.makeText(this, "Welcome " + user.getEmail(), Toast.LENGTH_SHORT).show();
 
+        hideLoading();
+        // TODO: 23/07/2018 redirect
+    }
+
+    @Override
+    public void onRegisterResult(boolean isSuccess, FirebaseUser user) {
+        if (isSuccess) {
+            // TODO: 23/07/2018 redirect
+            finish();
+        } else {
+            Toast.makeText(this, "Failed to register!", Toast.LENGTH_SHORT).show();
+            hideLoading();
+        }
     }
 
     @Override

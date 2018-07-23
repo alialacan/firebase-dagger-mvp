@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "948573053374",
+    "firebase_url": "https://archfire-b42f0.firebaseio.com",
+    "project_id": "archfire-b42f0",
+    "storage_bucket": "archfire-b42f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948573053374:android:47941ae0ce0d9646",
+        "android_client_info": {
+          "package_name": "com.alialacan.archfire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948573053374-rgu3044oobv2utblngn5vse1nb01a684.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-e0R1ZkHNhYfwAzl5Rq5EIdRS-aY2VnM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

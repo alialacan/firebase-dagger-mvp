@@ -4,6 +4,11 @@ import android.content.Context;
 
 import com.alialacan.archfire.App;
 import com.alialacan.archfire.UserModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import javax.annotation.Nullable;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,16 +21,13 @@ class ApplicationModule {
     }
 
     @Provides
-    UserModel provideUser() {
-
-        return getCurrentUser();
+    FirebaseFirestore provideFirebaseFirestore() {
+        return FirebaseFirestore.getInstance();
     }
 
-    private UserModel getCurrentUser() {
-        UserModel user = new UserModel();
-        user.setUid("1");
-        user.setUserName("alialacan");
-        user.setPass("123");
-        return user;
+    @Nullable
+    @Provides
+    FirebaseUser provideUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
     }
 }
